@@ -1,0 +1,9 @@
+schema_version: "1.1"
+name: review-existing-feature-list
+expected_outcome: |
+  Flags and fixes the planted conflicts: registration points (MVP) vs earning points (P1); points redemption MVP vs points group P1;
+  rental package MVP although the section says rental follows MVP; parts-life tracker MVP vs maintenance schedule P1;
+  the competitor note recommending P1 while the rows stay Later; MVP back-office features with no screen; screen 2.9 showing Later features.
+  Produces a corrected feature list file and a list of pre-dev decisions/open questions with owners.
+context:
+  scaffold_script: place-files.sh

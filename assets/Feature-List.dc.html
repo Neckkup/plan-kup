@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="__LANG__">
+<head>
+<meta charset="utf-8">
+<title>Feature list</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:#1747C9}a:hover{color:#0F3496}
+</style>
+</helmet>
+<div style="background: #FFFFFF; color: #111318; font-family: 'IBM Plex Sans Thai', system-ui, sans-serif">
+  <div style="max-width: 1180px; margin: 0 auto; padding: 48px clamp(16px, 3vw, 40px) 64px; box-sizing: border-box; display: flex; flex-direction: column; gap: 28px">
+    <header style="display: flex; flex-direction: column; gap: 12px">
+      <h1 style="margin: 0; font-size: clamp(30px, 4vw, 42px); line-height: 1.2; font-weight: 700">{{title}}</h1>
+      <span style="font-size: 14px; color: #5B6170">{{byline}}</span>
+      <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #33415C; max-width: 820px">{{summary}}</p>
+      <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #33415C; max-width: 820px">{{legend}}</p>
+      <div role="group" aria-label="{{t.filter}}" style="display: flex; flex-wrap: wrap; gap: 8px; padding-top: 4px">
+        <sc-for list="{{filters}}" as="f" hint-placeholder-count="5">
+          <button type="button" aria-pressed="{{f.pressed}}" onClick="{{f.pick}}" style="{{f.style}}">{{f.label}} · {{f.count}}</button>
+        </sc-for>
+      </div>
+    </header>
+
+    <sc-for list="{{sections}}" as="s" hint-placeholder-count="6">
+      <sc-if value="{{s.hasRows}}" hint-placeholder-val="{{ true }}">
+        <section style="display: flex; flex-direction: column; gap: 10px">
+          <h2 style="margin: 0; font-size: 24px; font-weight: 700">{{s.title}}</h2>
+          <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #33415C; max-width: 860px">{{s.lead}}</p>
+          <div style="overflow-x: auto">
+            <div style="min-width: 760px; display: flex; flex-direction: column; border-top: 2px solid #111318">
+              <div style="display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 2.4fr) 96px 150px; gap: 16px; padding: 8px 4px; font-size: 12px; font-weight: 700; color: #5B6170; border-bottom: 1px solid #E3E5EA">
+                <span>{{t.feature}}</span><span>{{t.what}}</span><span>{{t.priority}}</span><span>{{t.screen}}</span>
+              </div>
+              <sc-for list="{{s.rows}}" as="r" hint-placeholder-count="6">
+                <div style="display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 2.4fr) 96px 150px; gap: 16px; padding: 10px 4px; border-bottom: 1px solid #E3E5EA; font-size: 14px; line-height: 1.5">
+                  <span style="font-weight: 600">{{r.name}}</span>
+                  <span style="color: #33415C">{{r.desc}}<sc-if value="{{r.hasSeen}}" hint-placeholder-val="{{ false }}"><span style="display: block; padding-top: 2px; font-size: 12px; color: #5B6170">{{t.seen}}: {{r.seen}}</span></sc-if></span>
+                  <span><span style="{{r.prStyle}}">{{r.prLabel}}</span></span>
+                  <span style="display: flex; flex-wrap: wrap; gap: 4px; align-content: flex-start">
+                    <sc-for list="{{r.screens}}" as="c" hint-placeholder-count="2">
+                      <sc-if value="{{c.isLink}}" hint-placeholder-val="{{ true }}">
+                        <a href="{{c.href}}" style="font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 6px; background: #EAF0FF; color: #0F2F86; text-decoration: none">{{c.label}}</a>
+                      </sc-if>
+                      <sc-if value="{{c.isText}}" hint-placeholder-val="{{ false }}">
+                        <span style="font-size: 12px; color: #5B6170; padding: 2px 0">{{c.label}}</span>
+                      </sc-if>
+                    </sc-for>
+                  </span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </section>
+      </sc-if>
+    </sc-for>
+
+    <sc-if value="{{hasQuestions}}" hint-placeholder-val="{{ true }}">
+      <section style="display: flex; flex-direction: column; gap: 10px">
+        <h2 style="margin: 0; font-size: 24px; font-weight: 700">{{t.questions}}</h2>
+        <p style="margin: 0; font-size: 15px; color: #33415C">{{t.questionsLead}}</p>
+        <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; font-size: 14px; line-height: 1.55">
+          <sc-for list="{{questions}}" as="q" hint-placeholder-count="5">
+            <li>{{q.text}}<sc-if value="{{q.hasMeta}}" hint-placeholder-val="{{ false }}"><span style="color: #5B6170"> ({{q.meta}})</span></sc-if></li>
+          </sc-for>
+        </ul>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{hasDecisions}}" hint-placeholder-val="{{ false }}">
+      <section style="display: flex; flex-direction: column; gap: 10px">
+        <h2 style="margin: 0; font-size: 24px; font-weight: 700">{{t.decisions}}</h2>
+        <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; font-size: 14px; line-height: 1.55">
+          <sc-for list="{{decisions}}" as="d" hint-placeholder-count="3">
+            <li><strong>{{d.topic}}:</strong> {{d.decision}}<span style="color: #5B6170"> {{d.why}}</span></li>
+          </sc-for>
+        </ul>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{hasSources}}" hint-placeholder-val="{{ true }}">
+      <section style="display: flex; flex-direction: column; gap: 8px; font-size: 13px; line-height: 1.55; color: #33415C">
+        <h2 style="margin: 0; font-size: 20px; font-weight: 700; color: #111318">{{t.sources}}</h2>
+        <sc-for list="{{sources}}" as="src" hint-placeholder-count="3">
+          <span>
+            <sc-if value="{{src.hasUrl}}" hint-placeholder-val="{{ true }}"><a href="{{src.url}}">{{src.text}}</a></sc-if>
+            <sc-if value="{{src.noUrl}}" hint-placeholder-val="{{ false }}">{{src.text}}</sc-if>
+          </span>
+        </sc-for>
+      </section>
+    </sc-if>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":__HEIGHT__}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { pr: 'all' };
+  }
+  renderVals() {
+    const D = /*__DATA__*/null;
+    const T = {
+      th: { filter: 'กรองตาม priority', all: 'ทั้งหมด', feature: 'ฟีเจอร์', what: 'ทำอะไร', priority: 'Priority', screen: 'หน้าจอ', seen: 'เห็นใน', exists: 'มีในระบบแล้ว', questions: 'คำถามที่ยังเปิด', questionsLead: 'คำตอบแต่ละข้ออาจย้ายฟีเจอร์ระหว่าง MVP, Phase 1 และ Later', decisions: 'ตัดสินแล้ว', sources: 'แหล่งข้อมูล', asOf: 'ข้อมูล ณ', features: 'ฟีเจอร์', groups: 'หมวด', legend: 'ความหมายของ priority:', owner: 'ผู้ตอบ', due: 'ภายใน' },
+      en: { filter: 'Filter by priority', all: 'All', feature: 'Feature', what: 'What it does', priority: 'Priority', screen: 'Screen', seen: 'Seen in', exists: 'Already built', questions: 'Open questions', questionsLead: 'Each answer can move features between MVP, Phase 1 and Later.', decisions: 'Decided', sources: 'Sources', asOf: 'As of', features: 'features', groups: 'groups', legend: 'Priorities:', owner: 'owner', due: 'due' }
+    };
+    const t = T[D.lang] || T.th;
+    const order = ['M', 'P1', 'P2', 'L'];
+    const styles = { M: 'color: #FFFFFF; background: #111318', P1: 'color: #0F2F86; background: #DCE5FF', P2: 'color: #5A3000; background: #FFE2B8', L: 'color: #33415C; background: #EEF1F5', X: 'color: #1D6B3A; background: #DDF3E4' };
+    const counts = { all: 0, M: 0, P1: 0, P2: 0, L: 0, X: 0 };
+    D.groups.forEach((g) => g.features.forEach((r) => { counts.all += 1; counts[r.pr] += 1; }));
+    const f = this.state.pr;
+    const sections = D.groups.map((g) => {
+      const rows = g.features.filter((r) => f === 'all' || r.pr === f).map((r) => ({
+        name: r.name,
+        desc: r.desc,
+        seen: r.seen || '',
+        hasSeen: !!r.seen,
+        prLabel: D.phaseShort[r.pr],
+        prStyle: 'display: inline-block; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; ' + styles[r.pr],
+        screens: (r.screens && r.screens.length ? r.screens : ['–']).map((label) => {
+          const s = D.screens[label];
+          return { label, href: s ? s.file + '.dc.html' : '', isLink: !!s, isText: !s };
+        })
+      }));
+      return { title: g.title, lead: g.lead || '', rows, hasRows: rows.length > 0 };
+    });
+    const keys = counts.X > 0 ? order.concat(['X']) : order;
+    const filters = [['all', t.all]].concat(keys.map((k) => [k, D.phaseShort[k]])).map(([id, label]) => {
+      const on = f === id;
+      return {
+        label, count: String(counts[id]), pressed: on ? 'true' : 'false', pick: () => this.setState({ pr: id }),
+        style: 'min-height: 44px; padding: 0 18px; border-radius: 999px; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; ' + (on ? 'background: #111318; color: #FFFFFF; border: 1.5px solid #111318' : 'background: #FFFFFF; color: #111318; border: 1.5px solid #C9CDD6')
+      };
+    });
+    const legend = t.legend + ' ' + order.map((k) => D.phases[k]).join(' · ');
+    const questions = (D.questions || []).map((q) => {
+      const meta = [q.owner ? t.owner + ': ' + q.owner : '', q.due ? t.due + ' ' + q.due : ''].filter(Boolean).join(', ');
+      return { text: q.text, meta, hasMeta: !!meta };
+    });
+    const decisions = (D.decisions || []).map((d) => ({ topic: d.topic, decision: d.decision, why: d.why ? '— ' + d.why : '' }));
+    const sources = (D.sources || []).map((s) => ({ text: s.text, url: s.url || '', hasUrl: !!s.url, noUrl: !s.url }));
+    return {
+      t, title: D.title, summary: D.summary || '', legend,
+      byline: t.asOf + ' ' + D.asOf + ' · ' + counts.all + ' ' + t.features + ' · ' + D.groups.length + ' ' + t.groups,
+      filters, sections, questions, hasQuestions: questions.length > 0, decisions, hasDecisions: decisions.length > 0,
+      sources, hasSources: sources.length > 0
+    };
+  }
+}
+</script>
+</body>
+</html>

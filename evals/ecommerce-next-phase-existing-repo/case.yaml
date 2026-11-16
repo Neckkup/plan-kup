@@ -1,0 +1,9 @@
+schema_version: "1.1"
+name: ecommerce-next-phase-existing-repo
+expected_outcome: |
+  Reads the existing repo and marks what already exists (catalog, Google sign-in, Stripe checkout, order history) instead of re-planning it;
+  English feature list with MVP sized for 1 dev / 4 months (wholesale and probably gift cards outside MVP);
+  data-model decisions that extend the existing Prisma schema (subscriptions, points ledger, refunds);
+  Stripe Billing vs custom subscription as a decision; a canvas with ≤8 new/changed web and admin screens; docs in shop/docs/planning.
+context:
+  scaffold_script: place-files.sh

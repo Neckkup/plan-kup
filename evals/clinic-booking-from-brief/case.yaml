@@ -1,0 +1,9 @@
+schema_version: "1.1"
+name: clinic-booking-from-brief
+expected_outcome: |
+  A Thai feature list grouped by area with MVP / Phase 1 / Phase 2 / Later priorities that covers every point in the brief
+  (online deposit, LINE reminders, orthodontic schedule, points as non-MVP, AI chat as Phase 2, DentCloud as an open question),
+  a published Design canvas with a Prototype page (≤10 interactive MVP screens with real clinic data) and a Feature list page,
+  docs/planning markdown files, and a list of pre-dev decisions and open questions with owners.
+context:
+  scaffold_script: place-files.sh
