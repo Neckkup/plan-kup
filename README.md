@@ -25,9 +25,16 @@ budget ของ MVP คำนวณจาก `"mvpBudget": {"weeks": 8, "devs":
 
 ## ติดตั้ง
 
+ใช้กับทุกโปรเจกต์บนเครื่อง:
+
 ```
-git clone <repo> ~/plan-kup
-ln -s ~/plan-kup ~/.claude/skills/plan-kup
+git clone https://github.com/Neckkup/plan-kup.git ~/.claude/skills/plan-kup
+```
+
+ใช้เฉพาะโปรเจกต์เดียว:
+
+```
+git clone https://github.com/Neckkup/plan-kup.git <project>/.claude/skills/plan-kup
 ```
 
 ## ใช้งาน
